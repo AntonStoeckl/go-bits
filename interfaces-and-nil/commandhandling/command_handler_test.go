@@ -54,8 +54,7 @@ func TestHandlingInterfaceWithUnderlyingNilPointer(t *testing.T) {
 	shouldBe := is.New(t)
 	handler := commandhandling.NewCommandHandler()
 	var nilCommand *commandhandling.RegisterCustomer
-	var interfaceWithUnderlyingNilPointer commandhandling.Command
-	interfaceWithUnderlyingNilPointer = nilCommand
+	var interfaceWithUnderlyingNilPointer commandhandling.Command = nilCommand
 
 	// Act
 	err := handler.Handle(interfaceWithUnderlyingNilPointer)

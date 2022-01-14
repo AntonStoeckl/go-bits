@@ -24,9 +24,9 @@ func TestNilPointerCommand(_ *testing.T) {
 
 func TestInterfaceWithUnderlyingNilPointer(_ *testing.T) {
 	var nilCommand *commandhandling.RegisterCustomer
-	var interfaceWithUnderlyingNilPointer commandhandling.Command
-	interfaceWithUnderlyingNilPointer = nilCommand
+	var interfaceWithUnderlyingNilPointer commandhandling.Command = nilCommand
 
+	//nolint:staticcheck // even the linter knows that this is always true ;-)
 	if interfaceWithUnderlyingNilPointer != nil {
 		_ = interfaceWithUnderlyingNilPointer.CommandType()
 	}
