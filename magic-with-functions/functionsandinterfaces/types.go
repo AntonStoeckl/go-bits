@@ -6,9 +6,13 @@ type ForRegisteringCustomers interface {
 
 type ForRegisteringCustomersFunc func(name, emailAddress string) error
 
-// Register is a receiver method for the ForRegisteringCustomersFunc type
-// that fullfills the ForRegisteringCustomers interface
-func (f ForRegisteringCustomersFunc) Register(name, emailAddress string) error {
+// Register is a receiver method for the ForRegisteringCustomersFunc
+// type that fullfills the ForRegisteringCustomers interface
+func (f ForRegisteringCustomersFunc) Register(
+	name string,
+	emailAddress string,
+) error {
+
 	return f(name, emailAddress)
 }
 
