@@ -13,8 +13,8 @@ func Test_isBigger_with_a_closure(t *testing.T) {
 	shouldBe := is.New(t)
 
 	realFunction := RegisterCustomer
-	receiverMethod := ForRegisteringCustomersFunc(realFunction)
-	handler := NewCustomerRegistrationHTTPHandler(receiverMethod)
+	castedFunction := ForRegisteringCustomersFunc(realFunction)
+	handler := NewCustomerRegistrationHTTPHandler(castedFunction)
 
 	// Act
 	err := handler.Handle("John Doe", "john@doe.com")
