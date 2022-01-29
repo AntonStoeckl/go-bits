@@ -12,7 +12,8 @@ func (f ForRegisteringCustomersFunc) Register(name, emailAddress string) error {
 	return f(name, emailAddress)
 }
 
-// RegisterCustomer is just a plain function that can be type-casted to ForRegisteringCustomersFunc
+// RegisterCustomer is just a plain function that can be type-casted
+// to ForRegisteringCustomersFunc
 func RegisterCustomer(name, emailAddress string) error {
 	// do something useful
 	_, _ = name, emailAddress
@@ -37,6 +38,10 @@ func NewCustomerRegistrationHTTPHandler(
 }
 
 // Handle uses the ForRegisteringCustomers dependency
-func (h *CustomerRegistrationHTTPHandler) Handle(name, emailAddress string) error {
+func (h *CustomerRegistrationHTTPHandler) Handle(
+	name string,
+	emailAddress string,
+) error {
+
 	return h.forRegisteringCustomers.Register(name, emailAddress)
 }
