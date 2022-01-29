@@ -37,6 +37,8 @@ type CustomerRepository interface {
 	Delete(id CustomerID) error
 }
 
+// CustomerService has repo as a protperty
+// that will be "enclosed" in the receiver methods
 type CustomerService struct {
 	repo CustomerRepository
 }
@@ -45,20 +47,26 @@ func NewCustomerService(repo CustomerRepository) *CustomerService {
 	return &CustomerService{repo: repo}
 }
 
+// Register is a receiver method that will be used as a closure
 func (s *CustomerService) Register(customerName string) error {
 	customer := Customer{Name: customerName}
 
 	return s.repo.Add(customer)
 }
 
+// Remove is a receiver method that will be used as a closure
 func (s *CustomerService) Remove(id CustomerID) error {
 	return s.repo.Delete(id)
 }
 
+// ForRegisteringCustomers is a function type
 type ForRegisteringCustomers func(customerName string) error
 
+// ForRemovingCustomers is a function type
 type ForRemovingCustomers func(id CustomerID) error
 
+// CustomerRegistrationHTTPHandler receives a closure as dependency
+// which fullfulls the function type ForRegisteringCustomers
 type CustomerRegistrationHTTPHandler struct {
 	registerCustomer ForRegisteringCustomers
 }
@@ -76,6 +84,8 @@ func (h *CustomerRegistrationHTTPHandler) Handle(customerName string) error {
 	return h.registerCustomer(customerName)
 }
 
+// CustomerRemovalHTTPHandler receives a closure as dependency
+// which fullfulls the function type ForRegisteringCustomers
 type CustomerRemovalHTTPHandler struct {
 	removeCustomer ForRemovingCustomers
 }
